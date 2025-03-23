@@ -78,7 +78,7 @@ export default function RecipeData() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "https://upskilling-egypt.com:3006/api/v1/Category/?pageSize=5&pageNumber=3",
+        "https://upskilling-egypt.com:3006/api/v1/Category/?pageSize=2&pageNumber=3",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -134,12 +134,15 @@ export default function RecipeData() {
       setValue("tagId", recipeData.tag?.id); // Ensure it accesses 'id'
 
       // Set category IDs (if available)
-      if (recipeData.category) {
+      if (recipeData.category && Array.isArray(recipeData.category)) {
         setValue(
           "categoriesIds",
-          recipeData.category.map((cat) => cat.id)
+          recipeData.category.map((cat) => cat.id) // Extract only IDs
         );
+      } else {
+        setValue("categoriesIds", []); // Ensure it's always an array
       }
+      console.log("Categories Set:", recipeData.category.map((cat) => cat.id));
 
       // Set image if available
       if (recipeData.imagePath) {
