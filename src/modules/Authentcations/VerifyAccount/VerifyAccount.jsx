@@ -23,7 +23,7 @@ export default function VerifyAccount() {
       console.error(error);
       alert(error.response?.data?.message);
     }
-  };
+  }; 
 
   return (
     <div className="auht-container">
