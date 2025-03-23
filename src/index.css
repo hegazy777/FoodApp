@@ -1,0 +1,54 @@
+.auht-container{
+  background-image: url("../src/assets/Loginbg.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+.sidebar{
+height: 100%;
+  background: #1F263E !important;
+    border-top-right-radius: 50px;
+}
+.css-dip3t8{
+  background: #1F263E !important;
+
+  color: #fff;
+  border-top-right-radius: 50px;
+}
+.ps-menu-button:hover {
+  background-color: #4AA35A !important;
+  border-left: 5px solid rgb(5, 97, 31);
+}
+
+.header-container {
+  background-image: url("../src/assets/headerbg.png"); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 300px; 
+  color: white; 
+  display: flex;
+  align-items: center;
+}
+
+.caption {
+  text-align: left; 
+}
+
+.img-container {
+  text-align: right; 
+}
+
+.img-container img {
+  max-height: 150px; 
+  width: auto;
+}
+
+.custom-table thead {
+  background-color: #E2E5EB !important;
+}
+
+.bg-light-green {
+  background-color: #F0FFEF; 
+  height: 176px;
+}
