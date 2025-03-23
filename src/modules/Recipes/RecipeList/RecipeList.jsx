@@ -35,7 +35,7 @@ export default function RecipeList() {
       );
       console.log("caccc", response);
       setCategories(response.data.data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const fetchTages = async () => {
@@ -51,7 +51,7 @@ export default function RecipeList() {
       );
       console.log("tage", response);
       setTages(response.data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const fetchRecipe = async (pageNumber, pageSize, name, tag, cat) => {
@@ -79,7 +79,7 @@ export default function RecipeList() {
       );
       console.log("pages", response.data.totalNumberOfPages);
       setLoading(false);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const deleteRecipe = async (recipeId) => {
@@ -228,10 +228,7 @@ export default function RecipeList() {
                     </td>
                     <td>{Recipe.price}</td>
                     <td>{Recipe.tag.name}</td>
-                    <td>
-                      {Recipe.category[0].name
-}
-                    </td>
+                    <td>{Recipe.category?.[0]?.name || "No Category"}</td>
                     {/* <td className="d-flex">
                       <button className="btn btn-primary btn-sm me-2">
                         <i className="fa fa-edit"></i>
@@ -338,9 +335,8 @@ export default function RecipeList() {
 
             {/* Next Button */}
             <li
-              className={`page-item ${
-                currentPage === totalPage.length ? "disabled" : ""
-              }`}
+              className={`page-item ${currentPage === totalPage.length ? "disabled" : ""
+                }`}
             >
               <button
                 className="page-link"
