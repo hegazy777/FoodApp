@@ -26,7 +26,7 @@ export default function RecipeList() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "https://upskilling-egypt.com:3006/api/v1/Category/?pageSize=5&pageNumber=3",
+        "https://upskilling-egypt.com:3006/api/v1/Category/?pageSize=6&pageNumber=1",
         {
           headers: {
             Authorization: `Bearer ${token}`,
