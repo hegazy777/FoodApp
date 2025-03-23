@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import logo from "../../../assets/Logo.png";
+import logo from "../../../assets/logo.png";
 import { axiosinstance, UserUrls } from "../../Urls/Urls";
 import axios from "axios";
 export default function VerifyAccount() {

@@ -1,7 +1,7 @@
 import React from "react";
 import { axiosinstance, UserUrls } from "../../Urls/Urls";
 import { useForm } from "react-hook-form";
-import logo from "../../../assets/Logo.png";
+import logo from "../../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 export default function ChangePass() {
   const {

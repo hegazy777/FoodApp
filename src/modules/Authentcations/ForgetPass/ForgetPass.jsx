@@ -1,7 +1,7 @@
 import React from 'react'
 import { axiosinstance, UserUrls } from '../../Urls/Urls';
 import { useForm } from 'react-hook-form';
-// import Logo from "../../../assets/Logo.png";
+import Logo from "../../../assets/logo.png";
 import { useNavigate } from 'react-router-dom';
 
 export default function ForgetPass() {
@@ -33,7 +33,7 @@ export default function ForgetPass() {
           <div className="col-md-5 bg-white  rounded-3">
             <div>
               <div className="logo-container d-flex justify-content-center">
-                {/* <img className="w-75" src={Logo} alt="" /> */}
+                <img className="w-75" src={Logo} alt="" />
               </div>
               <div className="tiitle my-3">
                 <h3>Forgot Your Password?</h3>
