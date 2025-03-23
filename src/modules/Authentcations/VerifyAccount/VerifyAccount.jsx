@@ -25,7 +25,7 @@ export default function VerifyAccount() {
     }
   }; 
 
-  return (
+  return ( 
     <div className="auht-container">
       <div className="container-fluid">
         <div className="row vh-100 justify-content-center align-content-center ">
