@@ -45,80 +45,78 @@ export default function Register() {
 
 
   return (
-    <div className="container d-flex justify-content-center align-items-center vh-100">
+    <div className="auht-container ">
+      <div className="row vh-100 container-fluid justify-content-center align-content-center py-2">
       <div className="card p-4 shadow-lg w-50">
-        <div className="logo-container d-flex justify-content-center">
-          <img className="w-75" src={logo} alt="" />
-        </div>
-        <h3 className="text-start">Register</h3>
-        <p className="text-stRT text-muted">Welcome Back! Please enter your details</p>
-        <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="row">
-            <div className="col-md-6 mb-3">
-              <label className="form-label">UserName</label>
-              <div className="input-group">
-                <span className="input-group-text"><FaUser /></span>
-                <input type="text" className="form-control" placeholder="UserName" {...register("userName", { required: "Username is required" })} />
-              </div>
-              {errors.username && <small className="text-danger">{errors.userName.message}</small>}
+            <div className="logo-container d-flex justify-content-center">
+              <img className="w-75" src={logo} alt="" />
             </div>
-            <div className="col-md-6 mb-3">
-              <label className="form-label">Enter your E-mail</label>
-              <div className="input-group">
-                <span className="input-group-text"><FaEnvelope /></span>
-                <input type="email" className="form-control" placeholder="Enter your E-mail" {...register("email", { required: "Email is required", pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Invalid email format" } })} />
+            <h3 className="text-start">Register</h3>
+            <p className="text-stRT text-muted">Welcome Back! Please enter your details</p>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="row">
+                <div className="col-md-6 mb-3">
+                  <div className="input-group">
+                    <span className="input-group-text"><FaUser /></span>
+                    <input type="text" className="form-control" placeholder="UserName" {...register("userName", { required: "Username is required" })} />
+                  </div>
+                  {errors.username && <small className="text-danger">{errors.userName.message}</small>}
+                </div>
+                <div className="col-md-6 mb-3">
+                  
+                  <div className="input-group">
+                    <span className="input-group-text"><FaEnvelope /></span>
+                    <input type="email" className="form-control" placeholder="Enter your E-mail" {...register("email", { required: "Email is required", pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Invalid email format" } })} />
+                  </div>
+                  {errors.email && <small className="text-danger">{errors.email.message}</small>}
+                </div>
+                <div className="col-md-6 mb-3">
+                  <div className="input-group">
+                    <span className="input-group-text"><FaGlobe /></span>
+                    <input type="text" className="form-control" placeholder="Country" {...register("country", { required: "Country is required" })} />
+                  </div>
+                  {errors.country && <small className="text-danger">{errors.country.message}</small>}
+                </div>
+                <div className="col-md-6 mb-3">
+                  <div className="input-group">
+                    <span className="input-group-text"><FaPhone /></span>
+                    <input type="text" className="form-control" placeholder="PhoneNumber" {...register("phoneNumber", { required: "Phone number is required", pattern: { value: /^[0-9]+$/, message: "Invalid phone number" } })} />
+                  </div>
+                  {errors.phone && <small className="text-danger">{errors.phoneNumber.message}</small>}
+                </div>
+                <div className="col-md-6 mb-3">
+                  <div className="input-group">
+                    <span className="input-group-text"><FaLock /></span>
+                    <input type={showPassword ? "text" : "password"} className="form-control" placeholder="Password" {...register("password", { required: "Password is required" })} />
+                    <button type="button" className="btn btn-outline-secondary" onClick={() => setShowPassword(!showPassword)}>
+                      <i
+                        className={
+                          showPassword ? "fas fa-eye" : "fas fa-eye-slash"
+                        }
+                      ></i>
+                    </button>
+                  </div>
+                  {errors.password && <small className="text-danger">{errors.password.message}</small>}
+                </div>
+                <div className="col-md-6 mb-3">
+                  <div className="input-group">
+                    <span className="input-group-text"><FaLock /></span>
+                    <input type={showPassword ? "text" : "password"} className="form-control" placeholder="Confirm Password" {...register("confirmPassword", { required: "Please confirm your password" })} />
+                  </div>
+                  {errors.confirmPassword && <small className="text-danger">{errors.confirmPassword.message}</small>}
+                </div>
               </div>
-              {errors.email && <small className="text-danger">{errors.email.message}</small>}
-            </div>
-            <div className="col-md-6 mb-3">
-              <label className="form-label">Country</label>
-              <div className="input-group">
-                <span className="input-group-text"><FaGlobe /></span>
-                <input type="text" className="form-control" placeholder="Country" {...register("country", { required: "Country is required" })} />
-              </div>
-              {errors.country && <small className="text-danger">{errors.country.message}</small>}
-            </div>
-            <div className="col-md-6 mb-3">
-              <label className="form-label">Phone Number</label>
-              <div className="input-group">
-                <span className="input-group-text"><FaPhone /></span>
-                <input type="text" className="form-control" placeholder="PhoneNumber" {...register("phoneNumber", { required: "Phone number is required", pattern: { value: /^[0-9]+$/, message: "Invalid phone number" } })} />
-              </div>
-              {errors.phone && <small className="text-danger">{errors.phoneNumber.message}</small>}
-            </div>
-            <div className="col-md-6 mb-3">
-              <label className="form-label">Password</label>
-              <div className="input-group">
-                <span className="input-group-text"><FaLock /></span>
-                <input type={showPassword ? "text" : "password"} className="form-control" placeholder="Password" {...register("password", { required: "Password is required"})} />
-                <button type="button" className="btn btn-outline-secondary" onClick={() => setShowPassword(!showPassword)}>
-                <i
-                      className={
-                        showPassword ? "fas fa-eye" : "fas fa-eye-slash"
-                      }
-                    ></i>
-                </button>
-              </div>
-              {errors.password && <small className="text-danger">{errors.password.message}</small>}
-            </div>
-            <div className="col-md-6 mb-3">
-              <label className="form-label">Confirm Password</label>
-              <div className="input-group">
-                <span className="input-group-text"><FaLock /></span>
-                <input type={showPassword ? "text" : "password"} className="form-control" placeholder="Confirm Password" {...register("confirmPassword", { required: "Please confirm your password" })} />
-              </div>
-              {errors.confirmPassword && <small className="text-danger">{errors.confirmPassword.message}</small>}
-            </div>
-          </div>
-          <div className="text-end mt-2 my-2">
+              <div className="text-end mt-2 my-2">
 
-            <a href="/login" className="text-success">Login Now?</a>
-          </div>
-          <button type="submit" className="btn btn-success w-100">Register</button>
+                <a href="/login" className="text-success">Login Now?</a>
+              </div>
+              <button type="submit" className="btn btn-success w-100">Register</button>
 
-        
-        </form>
+
+            </form>
+          </div>
       </div>
     </div>
+
   );
 }
