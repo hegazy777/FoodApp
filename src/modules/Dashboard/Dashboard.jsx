@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../Shard/Header/Header'
 import { Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-
+import Dashboard from "./modules/dashboard/dashboard";
 export default function Dashboard() {
   return (
     <>

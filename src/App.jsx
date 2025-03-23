@@ -56,7 +56,8 @@ saveloginData()
     {
       path: '/dashboard',
       element: <ProtectedRoute><MasterLayout user={user} /></ProtectedRoute>,
-      children: [ 
+      children: [
+        { index: true, element: <Dashboard/> }, 
         { path: 'CategoryList', element: <CategoryList /> },
         { path: 'CategoryData', element: <CategoryData /> },
         { path: 'RecipeData/newRecipe', element: <RecipeData /> },
