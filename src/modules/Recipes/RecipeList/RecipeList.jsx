@@ -4,6 +4,7 @@ import axios from "axios";
 import noDataImage from "../../../assets/noCatory.png";
 import { axiosinstance, BaseUrl, recipeUrl } from "../../Urls/Urls";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function RecipeList() {
   const [RecipeData, setRecipeData] = useState([]);
@@ -16,6 +17,7 @@ export default function RecipeList() {
   const [name, setName] = useState([]);
   const [selectedTag, setSelectedTag] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [loginDatata, setLoginDatata] = useState(null);
 
   // const navigate = useNavigate();
   // const handleEdit = (recipeId) => {
@@ -35,7 +37,7 @@ export default function RecipeList() {
       );
       console.log("caccc", response);
       setCategories(response.data.data);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const fetchTages = async () => {
@@ -51,7 +53,7 @@ export default function RecipeList() {
       );
       console.log("tage", response);
       setTages(response.data);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const fetchRecipe = async (pageNumber, pageSize, name, tag, cat) => {
@@ -79,7 +81,7 @@ export default function RecipeList() {
       );
       console.log("pages", response.data.totalNumberOfPages);
       setLoading(false);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const deleteRecipe = async (recipeId) => {
@@ -88,15 +90,10 @@ export default function RecipeList() {
       const response = await axiosinstance.delete(
         recipeUrl.DeleteRecipe(recipeId)
       );
-      const confirmDelete = window.confirm(
-        "Are you sure you want to delete this recipe?"
-      );
-      if (!confirmDelete) return;
-
-      if (response.status === 200) {
-        alert("Recipe deleted successfully!");
+      toast.success("Recipe added to favorites!");
+  
         fetchRecipe();
-      }
+      
     } catch (error) {
       console.error(error);
       alert("Failed to delete the recipe");
@@ -118,10 +115,24 @@ export default function RecipeList() {
     fetchRecipe(totalPage, 5, name, selectedTag, selectedCategory);
   };
 
+  const AddFavorite = async (recipeId) => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.post(`${BaseUrl}/userRecipe`, { recipeId: recipeId }, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      toast.success("Recipe added to favorites!");
+
+    } catch (error) {
+      console.error("Error adding favorite:", error);
+    }
+  };
+
   useEffect(() => {
     fetchRecipe(totalPage, 5, name, selectedTag, selectedCategory);
     fetchCategories();
     fetchTages();
+    setLoginDatata(JSON.parse(localStorage.getItem("decodeToken")));
   }, [currentPage, name, selectedTag, selectedCategory]);
 
   return (
@@ -138,17 +149,21 @@ export default function RecipeList() {
             <h1 className="m-0 fw-bold">Recipe Table Details</h1>
             <p className="text-muted">You can check all details</p>
           </div>
-          <div className="addCategory">
-            {/* <button className="btn btn-success">
+          {loginDatata?.userGroup == "userGroup" ? (
+            <div className="addCategory">
+              {/* <button className="btn btn-success">
               <i className="fa fa-plus"></i> Add Recipe
             </button> */}
-            <Link
-              to="/dashboard/RecipeData/newRecipe"
-              className="btn btn-success"
-            >
-              Add Recipe
-            </Link>
-          </div>
+              <Link
+                to="/dashboard/RecipeData/newRecipe"
+                className="btn btn-success"
+              >
+                Add Recipe
+              </Link>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <div className="row mb-4">
           <div className="col-md-6">
@@ -242,49 +257,64 @@ export default function RecipeList() {
                     </td> */}
 
                     <td>
-                      <div className="dropdown">
-                        <i
-                          className="fa fa-ellipsis-v text-secondary"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                          style={{ cursor: "pointer" }}
-                        ></i>
-                        <ul className="dropdown-menu">
-                          <li>
-                            <button className="dropdown-item">
-                              <i
-                                className="fa fa-eye me-2"
-                                style={{ color: "#009247" }}
-                              ></i>
-                              View
-                            </button>
-                          </li>
-                          <li>
-                            <Link
-                              className="dropdown-item"
-                              to={`/dashboard/Recipe/${Recipe.id}`}
-                            >
-                              <i
-                                className="fa fa-edit me-2"
-                                style={{ color: "#009247" }}
-                              ></i>
-                              Edit
-                            </Link>
-                          </li>
-                          <li>
-                            <button
-                              className="dropdown-item text-danger"
-                              onClick={() => deleteRecipe(Recipe.id)}
-                            >
-                              <i
-                                className="fa fa-trash me-2"
-                                style={{ color: "#009247" }}
-                              ></i>
-                              Delete
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
+                      {loginDatata?.userGroup == "userGroup" ? (
+                        <div className="dropdown">
+                          <i
+                            className="fa fa-ellipsis-v text-secondary"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            style={{ cursor: "pointer" }}
+                          ></i>
+                          <ul className="dropdown-menu">
+                            <li>
+                              <button className="dropdown-item">
+                                <i
+                                  className="fa fa-eye me-2"
+                                  style={{ color: "#009247" }}
+                                ></i>
+                                View
+                              </button>
+                            </li>
+                            <li>
+                              <Link
+                                className="dropdown-item"
+                                to={`/dashboard/Recipe/${Recipe.id}`}
+                              >
+                                <i
+                                  className="fa fa-edit me-2"
+                                  style={{ color: "#009247" }}
+                                ></i>
+                                Edit
+                              </Link>
+                            </li>
+                            <li>
+                              <button
+                                className="dropdown-item text-danger"
+                                onClick={() => deleteRecipe(Recipe.id)}
+                              >
+                                <i
+                                  className="fa fa-trash me-2"
+                                  style={{ color: "#009247" }}
+                                ></i>
+                                Delete
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      ) : (
+                        <div>
+                          <Link
+                            className=""
+                         
+                            onClick={() => AddFavorite(Recipe.id)}
+                          >
+                            <i
+                              className="fa fa-heart me-2"
+                              style={{ color: "#009247" }}
+                            ></i>
+                          </Link>
+                        </div>
+                      )}
                     </td>
                   </tr>
                 ))
@@ -335,8 +365,9 @@ export default function RecipeList() {
 
             {/* Next Button */}
             <li
-              className={`page-item ${currentPage === totalPage.length ? "disabled" : ""
-                }`}
+              className={`page-item ${
+                currentPage === totalPage.length ? "disabled" : ""
+              }`}
             >
               <button
                 className="page-link"

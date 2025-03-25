@@ -3,7 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import logo from "../../../assets/3.png";
 
-export default function SideBar() {
+export default function SideBar({userdata}) {
+
+  console.log("userDataaaaaaaaaa",userdata);
   const [collapsed, setCollapsed] = useState(false);
   let navigate = useNavigate();
 
@@ -26,15 +28,22 @@ export default function SideBar() {
           <MenuItem  icon={<i className="fa fa-home"></i>} component={<Link to="/dashboard" />}>
             Home
           </MenuItem>
-          <MenuItem icon={<i className="fa fa-user"></i>} component={<Link to="/dashboard/users" />}>
+
+          {userdata?.userGroup!="SystemUser" ? <MenuItem icon={<i className="fa fa-user"></i>} component={<Link to="/dashboard/users" />}>
             Users
-          </MenuItem>
+          </MenuItem>   : ""}
+          
           <MenuItem icon={<i className="fa fa-list"></i>} component={<Link to="/dashboard/RecipeList" />}>
             Recipes
           </MenuItem>
-          <MenuItem icon={<i className="fa fa-th-large"></i>} component={<Link to="/dashboard/CategoryList" />}>
+          {userdata?.userGroup!="SystemUser" ?<MenuItem icon={<i className="fa fa-th-large"></i>} component={<Link to="/dashboard/CategoryList" />}>
             Category
-          </MenuItem>
+          </MenuItem>:""}
+
+          {userdata?.userGroup=="SystemUser" ?<MenuItem icon={<i className="fa fa-th-large"></i>} component={<Link to="/dashboard/FavoriteList" />}>
+            Fav
+          </MenuItem>:""}
+          
           <MenuItem  onClick={logout} icon={<i className="fa fa-th-large"></i>} >
           Log Out 
           </MenuItem>

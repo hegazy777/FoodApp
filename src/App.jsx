@@ -19,6 +19,7 @@ import { ToastContainer } from 'react-toastify'
 import { jwtDecode } from 'jwt-decode'
 import ProtectedRoute from './modules/Shard/ProtectRoute/ProtectedRoute'
 import { useEffect, useState } from 'react'
+import Fav from './modules/Fav/Fav'
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
     return; 
   }
     let decodeToken = jwtDecode(encodeToken);
+    localStorage.setItem('decodedToken',JSON.stringify(decodeToken));     
     console.log(decodeToken);
     setUser(decodeToken);
 
@@ -63,6 +65,7 @@ saveloginData()
         { path: 'RecipeData/newRecipe', element: <RecipeData /> },
         { path: 'Recipe/:recipeId', element: <RecipeData /> },
         { path: 'RecipeList', element: <RecipeList /> },
+        { path: 'FavoriteList', element: <Fav /> },
         { path: 'users', element: <UserList /> }
       ]
     },
