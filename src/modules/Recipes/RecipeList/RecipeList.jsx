@@ -85,12 +85,12 @@ export default function RecipeList() {
   };
 
   const deleteRecipe = async (recipeId) => {
-    alert(recipeId);
+    // alert(recipeId);
     try {
       const response = await axiosinstance.delete(
         recipeUrl.DeleteRecipe(recipeId)
       );
-      toast.success("Recipe added to favorites!");
+      toast.success("Recipe deleted !");
   
         fetchRecipe();
       
@@ -149,7 +149,7 @@ export default function RecipeList() {
             <h1 className="m-0 fw-bold">Recipe Table Details</h1>
             <p className="text-muted">You can check all details</p>
           </div>
-          {loginDatata?.userGroup == "userGroup" ? (
+          {loginDatata?.userGroup !== "userGroup" ? (
             <div className="addCategory">
               {/* <button className="btn btn-success">
               <i className="fa fa-plus"></i> Add Recipe
@@ -257,7 +257,7 @@ export default function RecipeList() {
                     </td> */}
 
                     <td>
-                      {loginDatata?.userGroup == "userGroup" ? (
+                      {loginDatata?.userGroup != "userGroup" ? (
                         <div className="dropdown">
                           <i
                             className="fa fa-ellipsis-v text-secondary"
